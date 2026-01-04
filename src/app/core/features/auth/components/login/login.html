@@ -1,0 +1,29 @@
+<div class="login-wrapper">
+  <header class="site-header">
+    <h1 class="logo">📚 BookHaven</h1>
+    <p>New reader? <a href="#">Create account</a></p>
+  </header>
+
+  <main class="login-main">
+    <div class="login-panel">
+      <div class="floating-books"></div>
+      
+      <div class="login-content">
+        <h2>Sign In</h2>
+        <p class="subtitle">Access your library</p>
+
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+          <div class="field">
+            <label>Username or email</label>
+            <input name="username" type="text" ngModel required autocomplete="username" />
+          </div>
+
+          <div class="field">
+            <label>Password</label>
+            <input name="password" type="password" ngModel required autocomplete="current-password" />
+          </div>
+
+          <button type="submit" [disabled]="loginForm.invalid">Enter</button>
+        </form>
+
+        <a href="#" class="help-link">Forgot pass
