@@ -1,29 +1,38 @@
-<div class="login-wrapper">
-  <header class="site-header">
-    <h1 class="logo">📚 BookHaven</h1>
-    <p>New reader? <a href="#">Create account</a></p>
-  </header>
+<div class="login-container">
+  <img class="login-logo" src="assets/book-stack.png" />
+  <div class="login-card">
+    <span class="card-header">
+      <h2>TallyRead</h2>
+    </span>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="Enter your email"
+          [class.error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+        />
+      </div>
 
-  <main class="login-main">
-    <div class="login-panel">
-      <div class="floating-books"></div>
-      
-      <div class="login-content">
-        <h2>Sign In</h2>
-        <p class="subtitle">Access your library</p>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="••••••••"
+          [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+        />
+      </div>
 
-        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-          <div class="field">
-            <label>Username or email</label>
-            <input name="username" type="text" ngModel required autocomplete="username" />
-          </div>
+      <button type="submit" [disabled]="loginForm.invalid">Sign In</button>
 
-          <div class="field">
-            <label>Password</label>
-            <input name="password" type="password" ngModel required autocomplete="current-password" />
-          </div>
-
-          <button type="submit" [disabled]="loginForm.invalid">Enter</button>
-        </form>
-
-        <a href="#" class="help-link">Forgot pass
+      <div class="footer-links">
+        <a href="#">Forgot password?</a>
+        <span>Don't have an account? <a href="#">Sign up</a></span>
+      </div>
+    </form>
+  </div>
+</div>
