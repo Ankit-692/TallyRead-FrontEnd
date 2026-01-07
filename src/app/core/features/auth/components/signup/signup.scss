@@ -1,16 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-.login-container {
+.signup-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   background-color: #f4f7f6;
   font-family: 'Montserrat','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 30px;
+  padding: 50px;
 }
 
-.login-card {
+.signup-card {
   position: relative;
   background: white;
   padding: 2.5rem;
@@ -18,6 +17,7 @@
   box-shadow: 0 10px 20px rgba(0,0,0,0.5);
   width: 25%;
   outline: #453d83 solid 2px;
+  margin-top: 1rem;
 }
 
 .card-header{
@@ -71,6 +71,17 @@ button {
 button:disabled { background-color: #ccc; cursor: not-allowed; }
 button:hover:not(:disabled) { background-color: #2e2856; }
 
+.signup-logo{
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  top: -70px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
 .footer-links {
   margin-top: 1.5rem;
   text-align: center;
@@ -81,14 +92,3 @@ button:hover:not(:disabled) { background-color: #2e2856; }
 }
 
 .footer-links a { color: #453d83; text-decoration: none; font-weight: bold;}
-
-.login-logo{
-  width: 150px;
-  height: 150px;
-  position: absolute;
-  top: -70px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-}

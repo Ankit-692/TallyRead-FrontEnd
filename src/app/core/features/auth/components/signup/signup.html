@@ -1,0 +1,77 @@
+<div class="signup-container">
+  <div class="signup-card">
+    <img class="signup-logo" src="assets/book-stack.png" />
+    <span class="card-header">
+      <h2>TallyRead</h2>
+    </span>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input
+          id="firstName"
+          type="text"
+          formControlName="firstName"
+          placeholder="Enter your FirstName"
+          [class.error]="signupForm.get('firstName')?.invalid && signupForm.get('firstName')?.touched"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input
+          id="lastName"
+          type="text"
+          formControlName="lastName"
+          placeholder="Enter your Last Name"
+          [class.error]="signupForm.get('lastName')?.invalid && signupForm.get('lastName')?.touched"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="Enter your email"
+          [class.error]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="••••••••"
+          [class.error]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="retypePassword">Retype Password</label>
+        <input
+          id="retypePassword"
+          type="password"
+          formControlName="retypePassword"
+          placeholder="Retype Your Password"
+          [class.error]="signupForm.get('retypePassword')?.invalid && signupForm.get('retypePassword')?.touched && signupForm.errors?.['mismatch']"
+        />
+      </div>
+
+      <span *ngIf="signupForm.get('retypePassword')?.value && !passwordsMatch">
+        Passwords do not match
+      </span>
+
+
+      <button type="submit" [disabled]="signupForm.invalid || !passwordsMatch">Sign Up</button>
+
+      <div class="footer-links">
+        <span>Already have an account? <a href="/login">Login</a></span>
+      </div>
+
+    </form>
+  </div>
+</div>
+
