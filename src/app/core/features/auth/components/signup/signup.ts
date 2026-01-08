@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { User } from '../../../../models/user.Interface';
+import { AuthService } from '../../../../services/auth-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +13,11 @@ import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validatio
 })
 export class Signup {
   signupForm!:FormGroup
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService:AuthService,
+    private router:Router
+  ) {}
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
@@ -34,8 +41,17 @@ export class Signup {
 
 
   onSubmit(){
-
+    if(this.signupForm.valid){
+      const user:User = this.signupForm.value;
+      this.authService.register(user).subscribe({
+        next:(response)=>{
+          console.log(response)
+          this.router.navigate(['/login'])          
+        },
+        error:(error)=>{
+          console.log(error);
+        }
+      })
+    }
   }
-
-
 }
