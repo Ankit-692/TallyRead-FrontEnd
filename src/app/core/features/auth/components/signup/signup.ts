@@ -7,17 +7,18 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './signup.html',
   styleUrl: './signup.scss',
 })
 export class Signup {
-  signupForm!:FormGroup
+
+  signupForm!: FormGroup
   constructor(
     private fb: FormBuilder,
-    private authService:AuthService,
-    private router:Router
-  ) {}
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
@@ -40,15 +41,15 @@ export class Signup {
   passwordsMatch = false;
 
 
-  onSubmit(){
-    if(this.signupForm.valid){
-      const user:User = this.signupForm.value;
+  onSubmit() {
+    if (this.signupForm.valid) {
+      const user: User = this.signupForm.value;
       this.authService.register(user).subscribe({
-        next:(response)=>{
+        next: (response) => {
           console.log(response)
-          this.router.navigate(['/login'])          
+          this.router.navigate(['/login'])
         },
-        error:(error)=>{
+        error: (error) => {
           console.log(error);
         }
       })
