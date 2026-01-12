@@ -28,6 +28,7 @@ h2{
   font-size: 3.5rem;
   font-family: "Jersey 10", sans-serif;
   color: #453d83;
+  margin-top: 2rem;
 }
 
 .form-group { margin-bottom: 1.5rem; }
@@ -72,8 +73,8 @@ button:disabled { background-color: #ccc; cursor: not-allowed; }
 button:hover:not(:disabled) { background-color: #2e2856; }
 
 .signup-logo{
-  width: 150px;
-  height: 150px;
+  width: 130px;
+  height: 130px;
   position: absolute;
   top: -70px;
   left: 50%;

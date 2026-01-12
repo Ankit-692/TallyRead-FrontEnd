@@ -1,35 +1,43 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable,signal } from '@angular/core';
 import { LoginRequest, User } from '../models/user.Interface';
-import { TokenStorageService } from './token-storage-service';
+import { catchError, map, of, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private apiUrl = 'http://localhost:8080';
+  currentUser = signal<any>(null);
 
-  private apiUrl = "http://localhost:8080";
-
-
-  constructor(
-    private http: HttpClient,
-    private tokenservice: TokenStorageService
-  ) { }
+  constructor(private http: HttpClient) {}
 
   register(user: User) {
-    return this.http.post(`${this.apiUrl}/register`, user)
+    return this.http.post(`${this.apiUrl}/register`, user);
   }
 
   login(loginRequest: LoginRequest) {
-    return this.http.post(`${this.apiUrl}/login`, loginRequest)
+    return this.http.post(`${this.apiUrl}/login`, loginRequest);
   }
 
-  logout() {
-    this.tokenservice.deleteToken()
+  logout(){
+    return this.http.post(`${this.apiUrl}/logout`,{}).pipe(
+      tap(()=>{
+        this.currentUser.set(null);
+      })
+    );
   }
 
-  hasToken(): boolean {
-    return !!this.tokenservice.getToken()
+  checkAuthStatus(): Observable<boolean> {
+    return this.http.get<any>(`${this.apiUrl}/api/me`).pipe(
+      map((res) => {
+        this.currentUser.set({ username: res.username, authenticated: res.authenticated });
+        return true;
+      }),
+      catchError(() => {
+        this.currentUser.set(null);
+        return of(false);
+      })
+    );
   }
-
 }

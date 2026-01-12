@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../services/auth-service';
 import { Router } from '@angular/router';
 import { LoginRequest } from '../../../../models/user.Interface';
-import { TokenStorageService } from '../../../../services/token-storage-service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +18,6 @@ export class Login {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private tokenservice: TokenStorageService
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +33,6 @@ export class Login {
       console.log('Form Data:', loginRequest);
       this.authService.login(loginRequest).subscribe({
         next: (response: any) => {
-          this.tokenservice.save(response.token);
           this.router.navigate(['/home']);
         },
         error: (error) => {
