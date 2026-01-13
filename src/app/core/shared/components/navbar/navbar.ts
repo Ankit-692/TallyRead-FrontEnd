@@ -11,20 +11,20 @@ import { Router } from '@angular/router';
 })
 export class Navbar {
   constructor(
-    private authService:AuthService,
-    private router:Router
-  ){}
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
-  get isLoggedIn():boolean {
+  get isLoggedIn(): boolean {
     return this.authService.currentUser()?.authenticated;
   }
 
-  logOut(){
+  logOut() {
     this.authService.logout().subscribe({
-      next: ()=>{
-        this.router.navigate(['/login']); 
+      next: () => {
+        this.router.navigate(['/login']);
       },
-      error: (err)=>{
+      error: () => {
         this.router.navigate(['/login']);
       }
     });

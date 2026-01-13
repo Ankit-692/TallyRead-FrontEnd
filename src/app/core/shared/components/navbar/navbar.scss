@@ -1,11 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 .nav-bar{
     height: 3rem;
-    background-color: #453d83;
-    padding: 0;
+    padding: 20px;
     margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.left{
+  display: flex;
+  flex-direction: row;
+}
+
+h2{
+  margin-left: 10px;
+  font-size: 2.5rem;
+  color: #453d83;
+  font-family: "Jersey 10", sans-serif;
 }
 
 .site-icon{
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
+}
+
+button{
+  border-style: none;
+  outline: 2px solid #453d83;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  background-color: white;
+}
+
+button:hover{
+ // outline: 2px solid white;
+  background-color: #453d83;
+  color: white;
 }

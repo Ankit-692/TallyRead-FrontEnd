@@ -1,6 +1,11 @@
 @if(isLoggedIn){
 <div class="nav-bar">
-  <img class="site-icon" src="assets/book-stack.png"/>
-  <button (click)="logOut()">Log out</button>
+  <div class="left">
+    <img class="site-icon" src="assets/book-stack.png"/>
+    <h2>TallyRead</h2>
+  </div>
+  <div clsass="right">
+    <button (click)="logOut()">Log out</button>
+  </div>
 </div>
 }
