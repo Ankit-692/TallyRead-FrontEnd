@@ -60,7 +60,7 @@
         />
       </div>
 
-      <span *ngIf="signupForm.get('retypePassword')?.value && !passwordsMatch">
+      <span *ngIf="signupForm.get('retypePassword')?.value && !passwordsMatch" class="signupError">
         Passwords do not match
       </span>
 

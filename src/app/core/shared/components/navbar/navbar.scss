@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 .nav-bar{
-    height: 3rem;
     padding: 20px;
     margin: 0;
     display: flex;
@@ -16,14 +15,14 @@
 
 h2{
   margin-left: 10px;
-  font-size: 2.5rem;
+  font-size: 2.7rem;
   color: #453d83;
   font-family: "Jersey 10", sans-serif;
 }
 
 .site-icon{
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
 }
 
 button{
@@ -36,7 +35,9 @@ button{
 }
 
 button:hover{
- // outline: 2px solid white;
   background-color: #453d83;
   color: white;
+  outline: none;
+  box-shadow: 0 0 3px rgba($color: #000000, $alpha: 0.5);
+  cursor: pointer;
 }

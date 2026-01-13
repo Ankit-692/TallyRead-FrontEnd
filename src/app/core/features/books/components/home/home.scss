@@ -1,0 +1,39 @@
+form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    justify-items: center;
+    font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.book-search{
+    height: 1.5rem;
+    width: 50%;
+    border: none;
+    padding: 20px;
+    padding-left: 30px;
+    border-radius: 40px;
+    font-size: large;
+    margin-right: 30px;
+    box-shadow: 2px 3px 10px 1px rgba($color: #4b4a4a, $alpha: 0.2);
+}
+
+.book-search:focus{
+    box-shadow: none;
+    outline: 2px solid #453d83;
+}
+
+.search-button{
+    border: none;
+    padding: 18px;
+    background-color: #6559bb;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 2px 3px 10px 1px rgba($color: #2e2e2e, $alpha: 0.4);
+}
+
+.search-button:hover{
+    background-color:#453d83;
+}

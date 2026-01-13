@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../services/auth-service';
@@ -13,11 +13,12 @@ import { LoginRequest } from '../../../../models/user.Interface';
 })
 export class Login {
   loginForm!: FormGroup;
-
+  loginError:boolean = false; 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
+    private cdr:ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +37,9 @@ export class Login {
           this.router.navigate(['/home']);
         },
         error: (error) => {
-          console.log(error);
+          this.loginError = true; 
+          console.log(error.error.error);
+          this.cdr.detectChanges();
         }
       })
     }
