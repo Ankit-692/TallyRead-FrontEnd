@@ -1,6 +1,6 @@
 <div class="search-section">
-  <form (ngOnSubmit)="onSubmit()">
-    <input type="text" placeholder="Search any book" class="book-search" />
+  <form (ngSubmit)="searchBook(userInput.value)">
+    <input #userInput type="text" placeholder="Search any book" class="book-search" />
     <button type="submit" class="search-button">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -10,10 +10,56 @@
         class="bi bi-search"
         viewBox="-1 -1 18 18"
       >
-        <path stroke="white" stroke-width="1.2"
+        <path
+          stroke="white"
+          stroke-width="1.2"
           d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
         />
       </svg>
     </button>
   </form>
+  <div class="book-grid">
+    <div class="book-card" *ngFor="let b of books" (click)="openModal(b)">
+      <div class="card-image">
+        <img [src]="b.image" [alt]="b.title" />
+      </div>
+      <div class="card-content">
+        <h3 class="title">{{ b.title }}</h3>
+        <p class="author">By: {{ b.authors }}</p>
+        <p class="description truncate-multiline">{{ b.description }}</p>
+
+        <div class="card-footer">
+          <span>Pages: {{ b.totalPage }}</span>
+          <span>Rating: ⭐ {{ b.ratings }}</span>
+        </div>
+        <p class="date">Published: {{ b.publishedDate }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="selectedBook" (click)="closeModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <button class="close-icon" (click)="closeModal()">&times;</button>
+
+    <div class="modal-header">
+      <img [src]="selectedBook.image" [alt]="selectedBook.title" />
+      <div class="header-text">
+        <h2>{{ selectedBook.title }}</h2>
+        <p class="modal-author"><strong>Author:</strong> {{ selectedBook.authors }}</p>
+        <div class="stats">
+          <span>📄 <strong>Pages:</strong> {{ selectedBook.totalPage }}</span>
+          <span>⭐ <strong>Rating:</strong> {{ selectedBook.ratings }}</span>
+          <span>📅 <strong>Published:</strong> {{ selectedBook.publishedDate }}</span>
+          <br/>
+          <button class="add-lib-btn" (click)="addToLibrary(selectedBook)">+ Add to Library</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <h3>Description</h3>
+      <p class="full-description">{{ selectedBook.description }}</p>
+    </div>
+  </div>
 </div>
