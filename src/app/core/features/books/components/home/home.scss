@@ -18,6 +18,7 @@ form {
   font-size: large;
   margin-right: 30px;
   box-shadow: 2px 3px 10px 1px rgba($color: #4b4a4a, $alpha: 0.2);
+  font-family: 'Montserrat','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .book-search:focus {
@@ -189,7 +190,7 @@ form {
 
 .add-lib-btn:hover {
   transform: translateY(-3px);  
-  background: linear-gradient(135deg, #7e72db 0%, #453d83 100%);
+  background: linear-gradient(95deg, #7e72db 0%, #453d83 100%);
 }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

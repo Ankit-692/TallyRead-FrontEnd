@@ -1,0 +1,86 @@
+<div class="book-grid">
+  <div class="book-card" *ngFor="let b of books" (click)="openModal(b)">
+    <div class="image-wrapper">
+      <img [src]="b.image" [alt]="b.title" loading="lazy" />
+      <div class="status-pill" [attr.data-status]="b.state.toLowerCase()">
+        {{ b.state }}
+      </div>
+    </div>
+
+    <div class="card-content">
+      <h3 class="title" [title]="b.title">{{ b.title }}</h3>
+      <p class="author">{{ b.authors }}</p>
+
+      <div class="stats-box">
+        <div class="stat">
+          <span class="label">Progress</span>
+          <span class="value"
+            ><b>{{ b.pageRead }}</b
+            ><small>/{{ b.totalPage }}</small></span
+          >
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="label">Rating</span>
+          <span class="value">⭐ {{ b.ratings }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="selectedBook" (click)="closeModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <button class="close-icon" (click)="closeModal()">&times;</button>
+
+    <div class="modal-content">
+      <div class="modal-aside">
+        <img [src]="selectedBook.image" [alt]="selectedBook.title" class="modal-cover" />
+      </div>
+
+      <div class="modal-main">
+        <header>
+          <h2 class="modal-title">{{ selectedBook.title }}</h2>
+          <p class="modal-author">by {{ selectedBook.authors }}</p>
+        </header>
+      <div class="modal-meta">
+        <span>⭐ {{ selectedBook.ratings }} Rating</span>
+        <span>📅 {{ selectedBook.publishedDate }}</span>
+      </div>
+      <br/>
+        <div class="action-grid">
+          <div class="input-group">
+            <label>Current Status</label>
+            <select [(ngModel)]="selectedBook.state" class="modern-select">
+              <option value="reading">Reading</option>
+              <option value="completed">Completed</option>
+              <option value="planning">Planning</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label>Pages Read</label>
+            <div class="page-input-wrapper">
+              <input
+                type="number"
+                [(ngModel)]="selectedBook.pageRead"
+                min="0"
+                [max]="selectedBook.totalPage"
+              />
+              <span>/ {{ selectedBook.totalPage }}</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="update-btn" (click)="update(selectedBook)">Update Changes</button>
+
+        <hr class="divider" />
+
+        <div class="description-section">
+          <h3>Description</h3>
+          <p class="full-description">{{ selectedBook.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

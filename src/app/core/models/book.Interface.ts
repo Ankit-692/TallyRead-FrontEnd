@@ -2,8 +2,10 @@ export class book{
     title:string="";
     description:string="";
     authors:string="";
-    totalPage:Number=0;
+    totalPage:number=0;
     ratings:string="";
     image:string="";
     publishedDate:string="";
+    pageRead:Number=0;
+    state:string="";
 }

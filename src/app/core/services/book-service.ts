@@ -27,4 +27,8 @@ export class BookService {
     console.log(book);
     return this.http.post(`${this.backendApi}/addBook`,book);
   }
+
+  getUserList(){
+    return this.http.get(`${this.backendApi}/getAllBooks`);
+  }
 }
