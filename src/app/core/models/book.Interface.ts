@@ -1,4 +1,5 @@
 export class book{
+    id:number=0;
     title:string="";
     description:string="";
     authors:string="";
@@ -6,6 +7,11 @@ export class book{
     ratings:string="";
     image:string="";
     publishedDate:string="";
-    pageRead:Number=0;
+    pageRead:number=0;
+    state:string="";
+}
+
+export class updateRequest{
+    pageRead:number=0;
     state:string="";
 }

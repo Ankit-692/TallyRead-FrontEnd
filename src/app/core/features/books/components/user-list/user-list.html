@@ -1,39 +1,55 @@
+<div class="filters">
+  <button 
+    *ngFor="let cat of ['all','planning','reading','completed','dropped']" 
+    (click)="getUserList(cat)"
+    [class.active]="filter === cat">
+    {{ cat }}
+  </button>
+</div>
 <div class="book-grid">
   <div class="book-card" *ngFor="let b of books" (click)="openModal(b)">
     <div class="image-wrapper">
+      <div class="blur-bg" [style.backgroundImage]="'url(' + b.image + ')'"></div>
       <img [src]="b.image" [alt]="b.title" loading="lazy" />
+
       <div class="status-pill" [attr.data-status]="b.state.toLowerCase()">
         {{ b.state }}
       </div>
     </div>
 
     <div class="card-content">
-      <h3 class="title" [title]="b.title">{{ b.title }}</h3>
-      <p class="author">{{ b.authors }}</p>
+      <div class="header-group">
+        <h3 class="title" [title]="b.title">{{ b.title }}</h3>
+        <p class="author">{{ b.authors }}</p>
+      </div>
 
-      <div class="stats-box">
-        <div class="stat">
-          <span class="label">Progress</span>
-          <span class="value"
-            ><b>{{ b.pageRead }}</b
-            ><small>/{{ b.totalPage }}</small></span
-          >
+      <div class="progress-container">
+        <div class="progress-track">
+          <div class="progress-fill" [style.width.%]="(b.pageRead / b.totalPage) * 100"></div>
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="label">Rating</span>
-          <span class="value">⭐ {{ b.ratings }}</span>
+        <div class="progress-labels">
+          <span>{{ (b.pageRead / b.totalPage) * 100 | number: '1.0-0' }}%</span>
+          <span>{{ b.pageRead }}/{{ b.totalPage }}</span>
         </div>
+      </div>
+
+      <div class="footer-stats">
+        <span class="rating">⭐ {{ b.ratings }}</span>
+        <button class="view-btn">Details</button>
       </div>
     </div>
   </div>
 </div>
 
 <div class="modal-overlay" *ngIf="selectedBook" (click)="closeModal()">
-  <div class="modal-card" (click)="$event.stopPropagation()">
+  <div
+    class="modal-card"
+    (click)="$event.stopPropagation()"
+    [class.invalid-state]="selectedBook.pageRead > selectedBook.totalPage"
+  >
     <button class="close-icon" (click)="closeModal()">&times;</button>
 
-    <div class="modal-content">
+    <div class="modal-content" [class.locked-ui]="selectedBook.pageRead > selectedBook.totalPage">
       <div class="modal-aside">
         <img [src]="selectedBook.image" [alt]="selectedBook.title" class="modal-cover" />
       </div>
@@ -43,22 +59,38 @@
           <h2 class="modal-title">{{ selectedBook.title }}</h2>
           <p class="modal-author">by {{ selectedBook.authors }}</p>
         </header>
-      <div class="modal-meta">
-        <span>⭐ {{ selectedBook.ratings }} Rating</span>
-        <span>📅 {{ selectedBook.publishedDate }}</span>
-      </div>
-      <br/>
+
+        <div class="error-banner" *ngIf="selectedBook.pageRead > selectedBook.totalPage">
+          ⚠️ Pages read cannot exceed total pages ({{ selectedBook.totalPage }})
+        </div>
+
         <div class="action-grid">
           <div class="input-group">
-            <label>Current Status</label>
-            <select [(ngModel)]="selectedBook.state" class="modern-select">
-              <option value="reading">Reading</option>
-              <option value="completed">Completed</option>
-              <option value="planning">Planning</option>
-            </select>
+            <label class="field-label">Current Status</label>
+            <div class="custom-dropdown">
+              <button type="button" class="dropdown-trigger" (click)="showDropdown = !showDropdown">
+                <span class="status-indicator" [attr.data-status]="selectedBook.state"></span>
+                <span class="trigger-text">{{ selectedBook.state }}</span>
+                <svg class="chevron" [class.open]="showDropdown" viewBox="0 0 24 24" width="18">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+              <div class="dropdown-menu" *ngIf="showDropdown">
+                <button
+                  *ngFor="let status of states"
+                  type="button"
+                  class="menu-item"
+                  [class.selected]="selectedBook.state === status"
+                  (click)="selectedBook.state = status; showDropdown = false"
+                >
+                  {{ status }}
+                  <span class="check-icon" *ngIf="selectedBook.state === status">✓</span>
+                </button>
+              </div>
+            </div>
           </div>
 
-          <div class="input-group">
+          <div class="input-group highlight-input">
             <label>Pages Read</label>
             <div class="page-input-wrapper">
               <input
@@ -66,16 +98,23 @@
                 [(ngModel)]="selectedBook.pageRead"
                 min="0"
                 [max]="selectedBook.totalPage"
+                [class.error-border]="selectedBook.pageRead > selectedBook.totalPage"
               />
               <span>/ {{ selectedBook.totalPage }}</span>
             </div>
           </div>
         </div>
 
-        <button class="update-btn" (click)="update(selectedBook)">Update Changes</button>
+        <button
+          class="update-btn"
+          [disabled]="selectedBook.pageRead > selectedBook.totalPage"
+          (click)="update(selectedBook)"
+        >
+          Save Changes
+        </button>
 
+        <button class="delete-btn" (click)="delete(selectedBook)">Remove Book</button>
         <hr class="divider" />
-
         <div class="description-section">
           <h3>Description</h3>
           <p class="full-description">{{ selectedBook.description }}</p>

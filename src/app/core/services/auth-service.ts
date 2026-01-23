@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   logout(){
-    return this.http.post(`${this.apiUrl}/logout`,{}).pipe(
+    return this.http.post(`${this.apiUrl}/api/logout`,{}).pipe(
       tap(()=>{
         this.currentUser.set(null);
       })

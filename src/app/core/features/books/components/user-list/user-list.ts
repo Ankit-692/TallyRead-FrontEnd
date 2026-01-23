@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener } from '@angular/core';
 import { BookService } from '../../../../services/book-service';
-import { book } from '../../../../models/book.Interface';
+import { book, updateRequest } from '../../../../models/book.Interface';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -14,17 +14,26 @@ export class UserList {
   books: book[] = [];
   states = ['planning', 'reading', 'completed', 'dropped'];
   selectedBook: book | null = null;
+  showDropdown: boolean = false;
+  filter:string = 'all'
+
   constructor(
     private bookService: BookService,
     private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
-    this.bookService.getUserList().subscribe((data: any) => {
+    this.getUserList(this.filter)
+  }
+
+  getUserList(value:string) {
+    this.filter = value
+    this.bookService.getUserList(value).subscribe((data: any) => {
       const items = data?.books || [];
       this.books = items.map((info: any) => {
         console.log(info);
         return {
+          id: info.ID,
           title: info.Title,
           description: info.Description,
           authors: info.Authors,
@@ -46,10 +55,44 @@ export class UserList {
   }
 
   closeModal() {
+    if (this.selectedBook != null && this.selectedBook.pageRead > this.selectedBook.totalPage) {
+      console.warn('Please fix the page count before closing.');
+      return;
+    }
     this.selectedBook = null;
   }
 
-  update(b:book){
+  update(b: book) {
+    const updateRequest: updateRequest = {
+      pageRead: b.pageRead,
+      state: b.state,
+    };
+    this.bookService.updateBook(updateRequest, b.id).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
+  delete(b: book) {
+    this.bookService.deleteBook(b.id).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.custom-dropdown')) {
+      this.showDropdown = false;
+    }
   }
 }
