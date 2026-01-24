@@ -25,7 +25,7 @@ export class Signup {
       firstName: ['', [Validators.required, Validators.maxLength(20)]],
       lastName: ['', [Validators.required, Validators.maxLength(20)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       retypePassword: ['', [Validators.required]]
     });
 
@@ -42,6 +42,10 @@ export class Signup {
 
 
   onSubmit() {
+    if (!(this.passwordControl.value === this.retypePasswordControl.value)) {
+      this.passwordsMatch = false;
+      return
+    }
     if (this.signupForm.valid) {
       const user: User = this.signupForm.value;
       this.authService.register(user).subscribe({

@@ -13,12 +13,12 @@ import { LoginRequest } from '../../../../models/user.Interface';
 })
 export class Login {
   loginForm!: FormGroup;
-  loginError:boolean = false; 
+  loginError: boolean = false;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private cdr:ChangeDetectorRef
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +37,7 @@ export class Login {
           this.router.navigate(['/home']);
         },
         error: (error) => {
-          this.loginError = true; 
+          this.loginError = true;
           console.log(error.error.error);
           this.cdr.detectChanges();
         }

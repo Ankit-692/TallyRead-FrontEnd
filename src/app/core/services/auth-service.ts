@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable,signal } from '@angular/core';
-import { LoginRequest, User } from '../models/user.Interface';
+import { Injectable, signal } from '@angular/core';
+import { ForgetPasswordRequest, LoginRequest, ResetRequest, User } from '../models/user.Interface';
 import { catchError, map, of, Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class AuthService {
   private apiUrl = 'http://localhost:8080';
   currentUser = signal<any>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   register(user: User) {
     return this.http.post(`${this.apiUrl}/register`, user);
@@ -20,9 +20,9 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, loginRequest);
   }
 
-  logout(){
-    return this.http.post(`${this.apiUrl}/api/logout`,{}).pipe(
-      tap(()=>{
+  logout() {
+    return this.http.post(`${this.apiUrl}/api/logout`, {}).pipe(
+      tap(() => {
         this.currentUser.set(null);
       })
     );
@@ -39,5 +39,16 @@ export class AuthService {
         return of(false);
       })
     );
+  }
+
+  requestResetLink(email: ForgetPasswordRequest) {
+    return this.http.post(`${this.apiUrl}/forgot-Password`, email)
+  }
+
+  resetPassword(token: string | null, data: ResetRequest) {
+    if (token == null) {
+      return
+    }
+    return this.http.post(`${this.apiUrl}/reset-password?token=${token}`, data)
   }
 }

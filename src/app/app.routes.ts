@@ -5,11 +5,15 @@ import { Home } from './core/features/books/components/home/home';
 import { authGuard } from './core/guard/auth-guard';
 import { noAuthGuard } from './core/guard/no-auth-guard';
 import { UserList } from './core/features/books/components/user-list/user-list';
+import { ResetPassword } from './core/features/auth/components/reset-password/reset-password';
+import { ForgetPassword } from './core/features/auth/components/forget-password/forget-password';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', canActivate: [noAuthGuard], component: Login, pathMatch: 'full' },
   { path: 'signup', canActivate: [noAuthGuard], component: Signup, pathMatch: 'full' },
   { path: 'home', canActivate: [authGuard], component: Home, pathMatch: 'full' },
-  {path: 'myList', canActivate:[authGuard], component: UserList, pathMatch: 'full'},
+  { path: 'myList', canActivate: [authGuard], component: UserList, pathMatch: 'full' },
+  { path: 'forgetPassword', canActivate: [noAuthGuard], component: ForgetPassword, pathMatch: 'full' },
+  { path: 'resetPassword', canActivate: [noAuthGuard], component: ResetPassword, pathMatch: 'full' }
 ];

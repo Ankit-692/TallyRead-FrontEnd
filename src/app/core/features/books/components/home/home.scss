@@ -39,6 +39,49 @@ form {
   background-color: #453d83;
 }
 
+.center-home{
+  margin-top: 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-home p{
+  font-size: 3rem;
+  font-weight: bold;
+  color: #453d83;
+  margin-right: 30px;
+  font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.home-stack{
+  height: 18rem;
+  width: 18rem;
+}
+
+.bottom-home{
+  margin-top: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.bottom-home p{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 30px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50px;
+  color: #453d83;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .book-grid {
   margin-top: 50px;
   display: grid;
