@@ -16,6 +16,8 @@ export class ResetPassword {
   token: string | null = null;
   passwordMatch: boolean = true
   expired: boolean = false
+  success: boolean = false
+  used: boolean = false
 
   constructor(
     private fb: FormBuilder,
@@ -52,12 +54,20 @@ export class ResetPassword {
       this.authService.resetPassword(this.token, resetRequest)?.subscribe({
         next: ((res: any) => {
           console.log(res);
+          this.success = true;
+          this.cdr.detectChanges();
         }),
         error: ((err: any) => {
+          this.resetRequest.setErrors({ "error": "error" })
           console.log(err);
           console.log(err.error.error.includes("Expired"))
           if (err.error.error.includes("Expired")) {
             this.expired = true;
+            this.passwordMatch = true;
+            this.cdr.detectChanges();
+          }
+          if (err.error.error.includes("no rows in result")) {
+            this.used = true;
             this.passwordMatch = true;
             this.cdr.detectChanges();
           }

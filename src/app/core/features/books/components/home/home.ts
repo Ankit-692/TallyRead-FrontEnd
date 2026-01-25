@@ -13,10 +13,19 @@ import { CommonModule } from '@angular/common';
 export class Home {
   books: book[] = [];
   selectedBook: book | null = null;
+  updateMessage: string = "";
   constructor(
     private bookService: BookService,
     private cdr: ChangeDetectorRef,
-  ) {}
+  ) { }
+
+  showUpdateMsg(msg: string) {
+    this.updateMessage = msg;
+    setTimeout(() => {
+      this.updateMessage = '';
+      this.cdr.detectChanges();
+    }, 3000)
+  }
 
   openModal(b: book) {
     this.selectedBook = b;
@@ -36,7 +45,7 @@ export class Home {
           description: info.description || 'No description available.',
           authors: info.authors ? info.authors.join(', ') : 'Unknown Author',
           totalPage: info.pageCount || 0,
-          ratings: info.averageRating || 'N/A',  
+          ratings: info.averageRating || 'N/A',
           image: info.imageLinks?.thumbnail || 'assets/noCover.png',
           publishedDate: info.publishedDate || 'Unknown',
         } as book;
@@ -48,12 +57,24 @@ export class Home {
   addToLibrary(b: book) {
     b.state = 'planning';
     b.ratings = String(b.ratings)
-    console.log(typeof(b.ratings));
+    console.log(typeof (b.ratings));
     return this.bookService.addBook(b).subscribe({
-      next:(res)=>{
+      next: (res) => {
+        this.closeModal();
+        this.showUpdateMsg("Book Added Successfully !!");
+        this.cdr.detectChanges();
         console.log("added")
       },
-      error:(err)=>{
+      error: (err: any) => {
+        if (err.status == 409) {
+          this.closeModal();
+          this.showUpdateMsg("Entry Already Exists");
+          this.cdr.detectChanges();
+        }
+        else {
+          this.showUpdateMsg("Something Went Wrong!");
+          this.cdr.detectChanges();
+        }
         console.log(err)
       }
     });

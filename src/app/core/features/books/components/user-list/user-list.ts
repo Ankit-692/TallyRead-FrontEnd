@@ -15,18 +15,27 @@ export class UserList {
   states = ['planning', 'reading', 'completed', 'dropped'];
   selectedBook: book | null = null;
   showDropdown: boolean = false;
-  filter:string = 'all'
+  filter: string = 'all'
+  updateMessage: string = "";
 
   constructor(
     private bookService: BookService,
     private cdr: ChangeDetectorRef,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getUserList(this.filter)
   }
 
-  getUserList(value:string) {
+  showUpdateMsg(msg: string) {
+    this.updateMessage = msg;
+    setTimeout(() => {
+      this.updateMessage = '';
+      this.cdr.detectChanges();
+    }, 3000)
+  }
+
+  getUserList(value: string) {
     this.filter = value
     this.bookService.getUserList(value).subscribe((data: any) => {
       const items = data?.books || [];
@@ -69,6 +78,9 @@ export class UserList {
     };
     this.bookService.updateBook(updateRequest, b.id).subscribe({
       next: (res) => {
+        this.getUserList(this.filter)
+        this.closeModal();
+        this.showUpdateMsg("Status Updated !")
         console.log(res);
       },
       error: (err) => {
@@ -80,10 +92,14 @@ export class UserList {
   delete(b: book) {
     this.bookService.deleteBook(b.id).subscribe({
       next: (res) => {
+        this.getUserList(this.filter)
+        this.closeModal();
+        this.showUpdateMsg("Book Deleted");
         console.log(res);
       },
       error: (err) => {
         console.log(err);
+        this.showUpdateMsg("something went Wrong!")
       },
     });
   }

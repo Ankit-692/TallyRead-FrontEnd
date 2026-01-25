@@ -4,4 +4,26 @@
 }
 body{
   background-color: #dad6ea;
+  overflow-x: clip;
+}
+
+.bg-img-1{
+  position: absolute;
+  right: -10rem;
+  bottom: -2rem;
+  height: 40rem;
+  width: 40rem;
+  z-index: -200;
+  opacity: 50%;
+}
+
+.bg-img-2{
+  position: absolute;
+  left: -10rem;
+  top: -2rem;
+  height: 30rem;
+  width: 30rem;
+  z-index: -200;
+  opacity: 50%;
+
 }

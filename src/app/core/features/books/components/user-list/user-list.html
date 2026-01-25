@@ -1,3 +1,6 @@
+<div *ngIf="updateMessage" class="updateMsg">
+  {{updateMessage}}
+</div>
 <div class="filters">
   <button 
     *ngFor="let cat of ['all','planning','reading','completed','dropped']" 
