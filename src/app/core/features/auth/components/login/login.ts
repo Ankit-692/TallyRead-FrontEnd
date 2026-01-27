@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../services/auth-service';
 import { Router } from '@angular/router';
 import { LoginRequest } from '../../../../models/user.Interface';
+import { NotificationService } from '../../../../services/notification-service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class Login {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private notify:NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -31,14 +33,19 @@ export class Login {
   onSubmit() {
     if (this.loginForm.valid) {
       const loginRequest: LoginRequest = this.loginForm.value;
-      console.log('Form Data:', loginRequest);
       this.authService.login(loginRequest).subscribe({
         next: (response: any) => {
           this.router.navigate(['/home']);
         },
         error: (error) => {
-          this.loginError = true;
-          console.log(error.error.error);
+          if(error.status == 401){
+            this.loginError = true;
+          }
+          else {
+            console.log("inside else went wrong")
+            this.notify.show("Something Went Wrong","error");
+          }
+          console.log(error);
           this.cdr.detectChanges();
         }
       })

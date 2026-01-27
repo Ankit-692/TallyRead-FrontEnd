@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { User } from '../../../../models/user.Interface';
 import { AuthService } from '../../../../services/auth-service';
 import { Router } from '@angular/router';
+import { NotificationService } from '../../../../services/notification-service';
 
 @Component({
   selector: 'app-signup',
@@ -17,7 +18,8 @@ export class Signup {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private notify: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -52,8 +54,10 @@ export class Signup {
         next: (response) => {
           console.log(response)
           this.router.navigate(['/login'])
+          this.notify.show("Registration Successfull, Please Login");
         },
         error: (error) => {
+          this.notify.show("Something went wrong","error");
           console.log(error);
         }
       })

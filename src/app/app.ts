@@ -1,14 +1,31 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { Navbar } from './core/shared/components/navbar/navbar';
-import { AuthService } from './core/services/auth-service';
+import { LoadingService } from './core/services/loading-service';
+import { CommonModule } from '@angular/common';
+import { Notification } from './core/shared/components/notification/notification';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,Navbar],
+  imports: [RouterOutlet, Navbar, CommonModule, Notification],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('TallyRead-FrontEnd');
+  public loadingService = inject(LoadingService);
+  private router = inject(Router);
+
+  constructor() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.loadingService.show();
+      } else if (
+        event instanceof NavigationEnd ||
+        event instanceof NavigationCancel ||
+        event instanceof NavigationError
+      ) {
+        setTimeout(() => this.loadingService.hide(), 200);
+      }
+    });
+  }
 }

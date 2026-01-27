@@ -3,6 +3,7 @@ import { AuthService } from '../../../../services/auth-service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ForgetPasswordRequest } from '../../../../models/user.Interface';
+import { NotificationService } from '../../../../services/notification-service';
 
 @Component({
   selector: 'app-forget-pasword',
@@ -16,7 +17,8 @@ export class ForgetPassword {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private notify: NotificationService
   ) { }
 
 
@@ -36,6 +38,7 @@ export class ForgetPassword {
           console.log(req)
         }),
         error: (err => {
+          this.notify.show("Something Went Wrong !","error");
           console.log(err)
         })
       })

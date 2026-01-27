@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ResetRequest } from '../../../../models/user.Interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth-service';
+import { NotificationService } from '../../../../services/notification-service';
 
 @Component({
   selector: 'app-reset-password',
@@ -24,7 +25,8 @@ export class ResetPassword {
     private route: ActivatedRoute,
     private authService: AuthService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private notify:NotificationService
   ) { }
   ngOnInit(): void {
     this.resetRequest = this.fb.group({
@@ -66,10 +68,13 @@ export class ResetPassword {
             this.passwordMatch = true;
             this.cdr.detectChanges();
           }
-          if (err.error.error.includes("no rows in result")) {
+          else if (err.error.error.includes("no rows in result")) {
             this.used = true;
             this.passwordMatch = true;
             this.cdr.detectChanges();
+          }
+          else{
+            this.notify.show("Something went wrong, Please try again!","error");
           }
           console.log(err.error.error);
         })

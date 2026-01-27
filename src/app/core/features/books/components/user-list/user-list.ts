@@ -3,6 +3,7 @@ import { BookService } from '../../../../services/book-service';
 import { book, updateRequest } from '../../../../models/book.Interface';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NotificationService } from '../../../../services/notification-service';
 
 @Component({
   selector: 'app-user-list',
@@ -15,48 +16,44 @@ export class UserList {
   states = ['planning', 'reading', 'completed', 'dropped'];
   selectedBook: book | null = null;
   showDropdown: boolean = false;
-  filter: string = 'all'
-  updateMessage: string = "";
+  filter: string = 'all';
 
   constructor(
     private bookService: BookService,
     private cdr: ChangeDetectorRef,
-  ) { }
+    private notify: NotificationService
+  ) {}
 
   ngOnInit(): void {
-    this.getUserList(this.filter)
-  }
-
-  showUpdateMsg(msg: string) {
-    this.updateMessage = msg;
-    setTimeout(() => {
-      this.updateMessage = '';
-      this.cdr.detectChanges();
-    }, 3000)
+    this.getUserList(this.filter);
   }
 
   getUserList(value: string) {
-    this.filter = value
-    this.bookService.getUserList(value).subscribe((data: any) => {
-      const items = data?.books || [];
-      this.books = items.map((info: any) => {
-        console.log(info);
-        return {
-          id: info.ID,
-          title: info.Title,
-          description: info.Description,
-          authors: info.Authors,
-          totalPage: info.TotalPage,
-          ratings: info.Ratings,
-          image: info.Image,
-          publishedDate: info.PublishedDate,
-          pageRead: info.PageRead,
-          state: info.State,
-        } as book;
-      });
-      console.log(this.books);
-      this.cdr.detectChanges();
+    this.filter = value;
+    this.bookService.getUserList(value).subscribe({
+      next: (data: any) => {
+        const items = data?.books || [];
+        this.books = items.map((info: any) => {
+          return {
+            id: info.ID,
+            title: info.Title,
+            description: info.Description,
+            authors: info.Authors,
+            totalPage: info.TotalPage,
+            ratings: info.Ratings,
+            image: info.Image,
+            publishedDate: info.PublishedDate,
+            pageRead: info.PageRead,
+            state: info.State,
+          } as book;
+        });
+      },
+      error: (err) => {
+        console.log(err);
+        this.notify.show("something went Wrong!","error");
+      },
     });
+    this.cdr.detectChanges();
   }
 
   openModal(b: book) {
@@ -65,7 +62,6 @@ export class UserList {
 
   closeModal() {
     if (this.selectedBook != null && this.selectedBook.pageRead > this.selectedBook.totalPage) {
-      console.warn('Please fix the page count before closing.');
       return;
     }
     this.selectedBook = null;
@@ -78,12 +74,13 @@ export class UserList {
     };
     this.bookService.updateBook(updateRequest, b.id).subscribe({
       next: (res) => {
-        this.getUserList(this.filter)
+        this.getUserList(this.filter);
         this.closeModal();
-        this.showUpdateMsg("Status Updated !")
+        this.notify.show("Book Updated","success")
         console.log(res);
       },
       error: (err) => {
+        this.notify.show("Something went wrong","error")
         console.log(err);
       },
     });
@@ -92,14 +89,14 @@ export class UserList {
   delete(b: book) {
     this.bookService.deleteBook(b.id).subscribe({
       next: (res) => {
-        this.getUserList(this.filter)
+        this.getUserList(this.filter);
         this.closeModal();
-        this.showUpdateMsg("Book Deleted");
+        this.notify.show("Book Deleted","success")
         console.log(res);
       },
       error: (err) => {
         console.log(err);
-        this.showUpdateMsg("something went Wrong!")
+        this.notify.show("Something Went Wrong","error")
       },
     });
   }

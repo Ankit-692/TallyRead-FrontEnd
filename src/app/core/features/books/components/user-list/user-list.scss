@@ -7,30 +7,6 @@
   --bg-card: #ffffff;
 }
 
-.updateMsg{
-  z-index: 1000;
-  top: 5rem;
-  max-width: fit-content;
-  text-align: center;
-  font-weight: bold;
-  color: #452d83;
-  font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  position: fixed;
-  padding: 20px;
-  border: 2px solid #453d83;
-  border-radius: 20px;
-  background-color: white;
-  left: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 0px 10px 4px rgba(0,0,0,0.3);
-  animation: slideUpMsg 0.7s cubic-bezier(0.16, 1, 0.3, 1); /* Subtle pop-up effect */
-}
-
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(40px) translateX(-50%) scale(0.95); }
-    to { opacity: 1; transform: translateY(0) translateX(-50%) scale(1); }
-}
-
 .filters {
   margin-left: 20px;
 }
@@ -45,10 +21,12 @@
   text-transform: capitalize;
   cursor: pointer;
   border-radius: 20px;
-  border: 1px solid #453d83;
+  border: none;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.1);
 }
 
 .filters button:hover {
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.04);
     color: white;
   background: linear-gradient(90deg, #6366f1, #a855f7);
 

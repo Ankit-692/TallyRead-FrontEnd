@@ -1,0 +1,19 @@
+.toast-popup {
+  font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: fixed;
+  top: 20px;
+  max-width: fit-content;
+  padding: 15px 25px;
+  border-radius: 8px;
+  color: white;
+  z-index: 1000;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0px 10px 4px rgba(0,0,0,0.15);
+  animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+}
+.success { background-color: #4CAF50; }
+.error { background-color: #f44336; }
+.info { background-color: #2196F3; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

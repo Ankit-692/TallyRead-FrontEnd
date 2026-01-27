@@ -1,2 +1,11 @@
+<div *ngIf="loadingService.isLoading$ | async" class="loader-overlay">
+  <div class="book-loader">
+    <div class="page"></div>
+    <div class="page"></div>
+    <div class="page"></div>
+  </div>
+  <p class="loading-text">Loading....</p>
+</div>
+<app-notification />
 <app-navbar />
 <router-outlet />
