@@ -7,7 +7,7 @@ import { catchError, map, of, Observable, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = import.meta.env['NG_APP_BACKEND_URL'];
   currentUser = signal<any>(null);
 
   constructor(private http: HttpClient) { }

@@ -34,15 +34,16 @@ export class UserList {
       next: (data: any) => {
         const items = data?.books || [];
         this.books = items.map((info: any) => {
+          console.log(info)
           return {
             id: info.ID,
-            title: info.Title,
-            description: info.Description,
-            authors: info.Authors,
-            totalPage: info.TotalPage,
-            ratings: info.Ratings,
-            image: info.Image,
-            publishedDate: info.PublishedDate,
+            title: info.title,
+            description: info.description,
+            authors: info.authors,
+            totalPage: info.totalPage,
+            ratings: info.ratings,
+            image: info.image,
+            publishedDate: info.publishedDate,
             pageRead: info.PageRead,
             state: info.State,
           } as book;

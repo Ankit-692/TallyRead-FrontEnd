@@ -13,7 +13,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(requestToProcess).pipe(
     finalize(()=>{
-      console.log(requestToProcess)
       loadingService.hide();
     })
   )

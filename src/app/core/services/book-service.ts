@@ -7,7 +7,7 @@ import { book, updateRequest } from '../models/book.Interface';
   providedIn: 'root',
 })
 export class BookService {
-  private backendApi = 'http://localhost:8080';
+  private backendApi = import.meta.env['NG_APP_BACKEND_URL'];
 
   constructor(private http: HttpClient) {}
 
