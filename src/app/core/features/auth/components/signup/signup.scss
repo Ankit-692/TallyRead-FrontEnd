@@ -107,3 +107,31 @@ button:hover:not(:disabled) { background-color: #2e2856; }
   margin-bottom: 10px;
   margin-top: 0;
 }
+
+@media (max-width: 1024px) {
+  .signup-card {
+    width: 50%; /* Tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .signup-container {
+    padding: 15px;
+    padding-bottom: 50px;
+  }
+
+  .signup-card {
+    width: 100%; /* Mobile phones */
+    padding: 2rem 1.5rem;
+  }
+
+  h2 {
+    font-size: 2.5rem; /* Shrink the large pixel font */
+  }
+
+  .signup-logo {
+    width: 100px;
+    height: 100px;
+    top: -50px;
+  }
+}

@@ -1,29 +1,52 @@
-/* You can add global styles to this file, and also import other style files */
-*{
+* {
   margin: 0;
 }
-body{
+
+body {
   background-color: #dad6ea;
   overflow-x: clip;
 }
 
-.bg-img-1{
-  position: absolute;
+// Background images - FIXED
+.bg-img-1, .bg-img-2 {
+  position: fixed;  // Changed from absolute to fixed
+  z-index: -200;
+  opacity: 0.5;
+  pointer-events: none;
+  height: auto;  // Prevent size jumps
+  max-width: 100vw;
+}
+
+.bg-img-1 {
   right: -10rem;
   bottom: -2rem;
   height: 40rem;
   width: 40rem;
-  z-index: -200;
-  opacity: 50%;
 }
 
-.bg-img-2{
-  position: absolute;
+.bg-img-2 {
   left: -10rem;
   top: -2rem;
   height: 30rem;
   width: 30rem;
-  z-index: -200;
-  opacity: 50%;
-
 }
+
+// FIXED: Target containers DIRECTLY instead of :has()
+.login-container ~ .bg-img-1,
+.login-container ~ .bg-img-2,
+.signup-container ~ .bg-img-1,
+.signup-container ~ .bg-img-2,
+.reset-container ~ .bg-img-1,
+.reset-container ~ .bg-img-2,
+.loader-overlay ~ .bg-img-1,  // HIDE during LOADING too!
+.loader-overlay ~ .bg-img-2 {
+  display: none !important;
+}
+
+// Ensure loader stays on top of everything
+.loader-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9999 !important;
+}
+
