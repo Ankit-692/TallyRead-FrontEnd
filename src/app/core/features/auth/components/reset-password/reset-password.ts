@@ -26,7 +26,7 @@ export class ResetPassword {
     private authService: AuthService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private notify:NotificationService
+    private notify: NotificationService
   ) { }
   ngOnInit(): void {
     this.resetRequest = this.fb.group({
@@ -55,6 +55,7 @@ export class ResetPassword {
       const resetRequest: ResetRequest = this.resetRequest.value;
       this.authService.resetPassword(this.token, resetRequest)?.subscribe({
         next: ((res: any) => {
+          this.resetRequest.get('password')?.setErrors({ "error": "Email Already Sent" });
           console.log(res);
           this.success = true;
           this.cdr.detectChanges();
@@ -73,8 +74,8 @@ export class ResetPassword {
             this.passwordMatch = true;
             this.cdr.detectChanges();
           }
-          else{
-            this.notify.show("Something went wrong, Please try again!","error");
+          else {
+            this.notify.show("Something went wrong, Please try again!", "error");
           }
           console.log(err.error.error);
         })

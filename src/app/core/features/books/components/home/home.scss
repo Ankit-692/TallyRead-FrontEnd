@@ -278,3 +278,97 @@ form {
   -webkit-line-clamp: 3; /* Limit to 3 lines */
   -webkit-box-orient: vertical;
 }
+
+@media (max-width: 768px) {
+  .description{
+    display: none;
+  }
+
+  /* 1. Search Bar Adjustments */
+  form {
+    flex-direction: row; /* Keep them side-by-side but adjust width */
+    padding: 0 20px;
+    margin-top: 30px;
+  }
+
+  .book-search {
+    width: 100%; /* Take up available space */
+    margin-right: 15px;
+    font-size: 1rem;
+    padding: 15px 20px;
+  }
+
+  /* 2. Home Screen (Initial State) */
+  .center-home {
+    flex-direction: column-reverse; /* Stack image and text */
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .center-home p {
+    font-size: 2rem; /* Smaller text for mobile */
+    margin-right: 0;
+    margin-top: 20px;
+  }
+
+  .home-stack {
+    height: 15rem;
+    width: 15rem;
+  }
+
+  .bottom-home {
+    flex-direction: column; /* Stack the Search/Track/Finish icons */
+    gap: 15px;
+    margin-top: 50px;
+  }
+
+  /* 3. Book Grid */
+  .book-grid {
+    grid-template-columns: 1fr 1fr; /* Single column on small mobile */
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .card-image img{
+    height: 160px;
+  }
+
+  .book-card {
+    min-height: auto; /* Let content dictate height */
+  }
+
+  .title{
+    font-size: 0.95rem ;
+  }
+
+  .author{
+    font-size: 0.75rem;
+  }
+
+  .card-footer{
+    font-size: 0.65rem;
+  }
+
+  .date{
+    font-size: 0.6rem ;
+  }
+
+  .header-text h2 {
+    font-size: 1.5rem;
+    margin-top: 15px;
+  }
+
+}
+
+/* Extra small screens (Phones) */
+@media (max-width: 480px) {
+  .book-grid {
+    grid-template-columns: 1fr 1fr; 
+    padding: 10px;
+    gap: 15px;
+  }
+  
+  .add-lib-btn {
+    width: 100%; /* Make button easy to tap */
+  }
+}

@@ -568,3 +568,96 @@
   cursor: not-allowed;
   transform: none;
 }
+
+@media (max-width: 768px) {
+  /* 1. Filters: Enable horizontal swiping if they don't fit */
+  .filters {
+    margin-left: 0;
+    padding: 10px 15px;
+    display: flex;
+    overflow-x: auto; /* Allow side-scrolling for categories */
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+    scrollbar-width: none; /* Hide scrollbar for clean look */
+  }
+  
+  .filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filters button {
+    font-size: 0.70rem;
+    width: auto; /* Let buttons size to text */
+    min-width: 90px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  /* 2. Book Grid: Adjust card density */
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+    padding: 15px;
+  }
+
+  .card-content {
+    padding: 12px;
+  }
+
+  .title {
+    font-size: 0.9rem;
+  }
+
+  /* 3. Modal: Single column stack */
+  .modal-card {
+    max-width: 95%;
+    max-height: 90vh;
+  }
+
+  .modal-content {
+    grid-template-columns: 1fr; /* Stack sidebar on top of content */
+  }
+
+  .modal-aside {
+    padding: 20px;
+    border-right: none;
+    border-bottom: 1px solid #f1f5f9;
+    flex-direction: row; /* Horizontal layout for cover and basic info */
+    gap: 20px;
+  }
+
+  .modal-cover {
+    width: 100px; /* Smaller thumbnail on mobile */
+    aspect-ratio: 2/3;
+  }
+
+  .modal-main {
+    padding: 20px;
+  }
+
+  /* 4. Action Grid: Stack inputs */
+  .action-grid {
+    grid-template-columns: 1fr; /* Stack status and pages vertically */
+    gap: 20px;
+  }
+
+  .update-btn, .delete-btn {
+    width: 100%; /* Full width buttons for easier tapping */
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .book-grid {
+    grid-template-columns: repeat(2, 1fr); /* Force 2 cards side-by-side */
+    gap: 12px;
+  }
+
+  .status-pill {
+    font-size: 0.55rem;
+    padding: 2px 6px;
+  }
+}

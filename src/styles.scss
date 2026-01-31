@@ -50,3 +50,15 @@ body {
   z-index: 9999 !important;
 }
 
+@media (max-width: 768px) {
+  .bg-img-1 {
+    height: 25rem;
+    width: 25rem;
+  }
+
+  .bg-img-2{
+    left: -8rem;
+    height: 15rem;
+    width: 15rem;
+  }
+}

@@ -70,3 +70,53 @@ button:hover,
   transition: transform 0.09s ease-in;
 }
 
+@media (max-width: 768px) {
+  .nav-bar {
+    padding: 12px 15px; /* Slightly tighter padding */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Keep the logo and text visible but smaller */
+  h2 {
+    font-size: 1.6rem; /* Scaled down from 2.7rem */
+    margin-left: 8px;
+    white-space: nowrap; /* Keeps TallyRead on one line */
+  }
+
+  .site-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .right {
+    display: flex;
+    gap: 8px; /* Tight gap between the link and button */
+  }
+
+  /* Adjust the visible link */
+  .right a {
+    margin-right: 0; /* Remove that big desktop margin */
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+
+  /* Adjust the logout button */
+  button {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+}
+
+/* For extremely narrow screens (e.g., 320px) */
+@media (max-width: 350px) {
+  h2 {
+    font-size: 1.3rem; /* Even smaller to ensure it fits */
+  }
+  
+  .nav-bar {
+    padding: 10px 8px;
+  }
+}
