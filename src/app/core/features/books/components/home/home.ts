@@ -36,7 +36,12 @@ export class Home {
         this.cdr.detectChanges();
       },
       error: (err) => {
-        this.notify.show("Somthing Went Wrong! Try Again","error")
+        if(err.status == 429) {
+          this.notify.show(err.error.error,"info")
+        }
+        else{
+          this.notify.show('Somthing Went Wrong! Try Again', 'error');
+        }
       },
     });
   }

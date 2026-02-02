@@ -52,13 +52,12 @@ export class Signup {
       const user: User = this.signupForm.value;
       this.authService.register(user).subscribe({
         next: (response) => {
-          console.log(response)
           this.router.navigate(['/login'])
-          this.notify.show("Registration Successfull, Please Login");
+          this.notify.show("Registration Successfull, Please Login","info");
         },
-        error: (error) => {
-          this.notify.show("Something went wrong","error");
-          console.log(error);
+        error: (err) => {
+          this.notify.show(err.error.error,"error");
+          console.log(err);
         }
       })
     }
