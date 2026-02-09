@@ -13,7 +13,7 @@ import { NotificationService } from '../../../../services/notification-service';
   styleUrl: './signup.scss',
 })
 export class Signup {
-
+  passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   signupForm!: FormGroup
   constructor(
     private fb: FormBuilder,
@@ -27,7 +27,7 @@ export class Signup {
       firstName: ['', [Validators.required, Validators.maxLength(20)]],
       lastName: ['', [Validators.required, Validators.maxLength(20)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(this.passwordPattern)]],
       retypePassword: ['', [Validators.required]]
     });
 
