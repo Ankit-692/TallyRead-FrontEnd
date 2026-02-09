@@ -60,6 +60,14 @@
         />
       </div>
 
+      <small *ngIf="signupForm.get('password')?.errors?.['pattern'] && !signupForm.get('password')?.errors?.['minlength']" class="signupError">
+        Almost there! Password needs a capital letter, a number, and a symbol.
+      </small>
+
+      <small *ngIf="signupForm.get('password')?.errors?.['minlength']" class="signupError">
+        Password must be at least 8 characters long.
+      </small>
+
       <span *ngIf="signupForm.get('retypePassword')?.value && !passwordsMatch" class="signupError">
         Passwords do not match
       </span>
