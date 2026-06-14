@@ -7,6 +7,7 @@ import { noAuthGuard } from './core/guard/no-auth-guard';
 import { UserList } from './core/features/books/components/user-list/user-list';
 import { ResetPassword } from './core/features/auth/components/reset-password/reset-password';
 import { ForgetPassword } from './core/features/auth/components/forget-password/forget-password';
+import { SharedUserList } from './core/features/books/components/shared-user-list/shared-user-list';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -15,5 +16,6 @@ export const routes: Routes = [
   { path: 'home', canActivate: [authGuard], component: Home, pathMatch: 'full' },
   { path: 'myList', canActivate: [authGuard], component: UserList, pathMatch: 'full' },
   { path: 'forgetPassword', canActivate: [noAuthGuard], component: ForgetPassword, pathMatch: 'full' },
-  { path: 'resetPassword', canActivate: [noAuthGuard], component: ResetPassword, pathMatch: 'full' }
+  { path: 'resetPassword', canActivate: [noAuthGuard], component: ResetPassword, pathMatch: 'full' },
+  { path: 'userProfile/:userId',component: SharedUserList, pathMatch: 'full' },
 ];

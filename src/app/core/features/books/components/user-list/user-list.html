@@ -5,6 +5,7 @@
     [class.active]="filter === cat">
     {{ cat }}
   </button>
+ <button (click)="copyProfileLink()" class="copyLinkButton">Copy Profile Link</button>
 </div>
 <div class="book-grid">
   <div class="book-card" *ngFor="let b of books" (click)="openModal(b)">

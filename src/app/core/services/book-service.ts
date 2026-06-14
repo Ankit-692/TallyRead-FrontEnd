@@ -32,4 +32,8 @@ export class BookService {
   deleteBook(id:number){
     return this.http.post(`${this.backendApi}/api/deleteBook/${id}`,{});
   }
+
+  getSharedUserBooks(userId: string) {
+    return this.http.get(`${this.backendApi}/userProfile/${userId}`);
+  }
 }

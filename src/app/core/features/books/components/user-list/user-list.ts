@@ -4,6 +4,7 @@ import { book, updateRequest } from '../../../../models/book.Interface';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NotificationService } from '../../../../services/notification-service';
+import { UserService } from '../../../../services/user-service';
 
 @Component({
   selector: 'app-user-list',
@@ -21,7 +22,8 @@ export class UserList {
   constructor(
     private bookService: BookService,
     private cdr: ChangeDetectorRef,
-    private notify: NotificationService
+    private notify: NotificationService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -108,5 +110,10 @@ export class UserList {
     if (!target.closest('.custom-dropdown')) {
       this.showDropdown = false;
     }
+  }
+  
+  async copyProfileLink(): Promise<void> {
+    await this.userService.getProfileLink();
+    this.notify.show("URL Copied","success")
   }
 }
