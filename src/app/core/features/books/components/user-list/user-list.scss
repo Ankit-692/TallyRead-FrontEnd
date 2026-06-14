@@ -37,6 +37,12 @@
   background: linear-gradient(90deg, #6366f1, #a855f7);
 }
 
+.copyLinkButton {
+    width:fit-content !important;
+    border-radius: 5px !important;
+    border: 2px solid purple !important;
+}
+
 .book-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));

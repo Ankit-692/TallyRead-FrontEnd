@@ -1,0 +1,54 @@
+<div class="left">
+    <img class="site-icon" src="assets/book-stack.png"/>
+    <h2>TallyRead</h2>
+</div> 
+<div class="top-Intro">
+    <p>{{userName}}'s List</p>
+</div>
+
+<div class="book-grid">
+    <div class="book-card" *ngFor="let b of books" (click)="openModal(b)">
+        <div class="image-wrapper">
+            <div class="blur-bg" [style.backgroundImage]="'url(' + b.image + ')'"></div>
+            <img [src]="b.image" [alt]="b.title" loading="lazy" />
+
+            <div class="status-pill" [attr.data-status]="b.state.toLowerCase()">{{ b.state }}</div>
+        </div>
+
+        <div class="card-content">
+            <div class="header-group">
+                <h3 class="title" [title]="b.title">{{ b.title }}</h3>
+                <p class="author">{{ b.authors }}</p>
+            </div>
+            <div class="footer-stats">
+                <span class="rating">⭐ {{ b.ratings }}</span>
+                <button class="view-btn">Details</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" *ngIf="selectedBook" (click)="closeModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <button class="close-icon" (click)="closeModal()">&times;</button>
+
+    <div class="modal-content">
+      <div class="modal-aside">
+        <img [src]="selectedBook.image" [alt]="selectedBook.title" class="modal-cover" />
+      </div>
+
+      <div class="modal-main">
+        <header>
+          <h2 class="modal-title">{{ selectedBook.title }}</h2>
+          <p class="modal-author">by {{ selectedBook.authors }}</p>
+        </header>
+
+        <hr class="divider" />
+        <div class="description-section">
+          <h3>Description</h3>
+          <p class="full-description">{{ selectedBook.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
